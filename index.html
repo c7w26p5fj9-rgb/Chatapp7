@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>La mia chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f5;
+    }
+    .app {
+      max-width: 600px;
+      margin: 0 auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+    header {
+      padding: 10px;
+      text-align: center;
+      background: #ededed;
+      font-weight: 600;
+    }
+    #messages {
+      flex: 1;
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    #messages li {
+      margin-bottom: 8px;
+      max-width: 80%;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: #f1f0f0;
+      word-wrap: break-word;
+    }
+    #messages li.me {
+      margin-left: auto;
+      background: #dcf8c6;
+    }
+    form {
+      display: flex;
+      padding: 8px;
+      border-top: 1px solid #ddd;
+      background: #fafafa;
+      gap: 6px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+    button {
+      padding: 8px 14px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      background: #25d366;
+      color: white;
+      font-weight: 600;
+    }
+    button:active {
+      opacity: 0.8;
+    }
+    .name-bar {
+      font-size: 12px;
+      padding: 4px 10px;
+      color: #555;
+      border-bottom: 1px solid #ddd;
+      background: #f9f9f9;
+    }
+    .name-bar input {
+      width: 100%;
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>La mia chat</header>
+    <div class="name-bar">
+      Il tuo nome:
+      <input id="nameInput" type="text" placeholder="Es. Mario" />
+    </div>
+    <ul id="messages"></ul>
+    <form id="form">
+      <input id="input" type="text" autocomplete="off" placeholder="Scrivi un messaggio..." />
+      <button type="submit">Invia</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messagesList = document.getElementById('messages');
+    const nameInput = document.getElementById('nameInput');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const text = input.value.trim();
+      if (!text) return;
+
+      let name = nameInput.value.trim();
+      if (!name) {
+        name = 'Io';
+      }
+
+      const li = document.createElement('li');
+      li.classList.add('me');
+      li.textContent = name + ': ' + text;
+
+      messagesList.appendChild(li);
+      messagesList.scrollTop = messagesList.scrollHeight;
+
+      input.value = '';
+      input.focus();
+    });
+  </script>
+</body>
+</html>
